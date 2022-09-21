@@ -13,14 +13,22 @@ getComplaints = _ => {
   return 'select id,name,description from complaints'
 }
 saveTicket = (obj) => {
-  sql = 'insert into tickets '
-  sql+= '('+keys+') '
+  keys = obj.columns.map(item=>{
+    return item.key
+  }).join('","')
+  vals = obj.columns.map(item=>{
+    return item.val
+  }).join('","')
+
+  sql = 'insert into '+obj.tableName+' '
+  sql+= '("'+keys+'") '
   sql+= 'values '
-  sql+= '('+vals+') '
+  sql+= '("'+vals+'") '
   return sql
 }
 module.exports = {
     getTickets:getTickets,
     getTicketsBySegment:getTicketsBySegment,
-    getComplaints:getComplaints
+    getComplaints:getComplaints,
+    saveTicket:saveTicket
 }
