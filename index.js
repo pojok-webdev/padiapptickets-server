@@ -26,13 +26,14 @@ app.get('/getcomplaints',(req,res) => {
 })
 app.post('/saveticket',(req,res)=>{
   params = req.body
-  res.send({"query":query.saveTicket({
+  res.send(params)
+  /*res.send({"query":query.saveTicket({
     tableName:"tickets",
     columns:[
       {key:"clientname",val:"abc"},
       {key:"address",val:"jl pangeran diponegoro 123"}
     ]
-  })
+  })*/
   })
 })
 //app.listen(process.env.port||2019)
