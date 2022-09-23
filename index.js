@@ -1,7 +1,11 @@
 var express = require('express'),
     app = express(),
     query = require("./js/queries.js"),
-    con = require("./js/connection")
+    con = require("./js/connection"),
+    bodyParser = require('body-parser')
+    app.use(bodyParser.json({'limit':'10mb',extended:true}))
+    app.use(bodyParser.urlencoded({'limit':'10mb',extended:true}))
+
 app.get('/gettickets',(req,res) => {
     query.getTickets(qry => {
         con.makeQuery(qry,result => {
@@ -26,14 +30,10 @@ app.get('/getcomplaints',(req,res) => {
 })
 app.post('/saveticket',(req,res)=>{
   params = req.body
-  res.send(params)
-  /*res.send({"query":query.saveTicket({
-    tableName:"tickets",
-    columns:[
-      {key:"clientname",val:"abc"},
-      {key:"address",val:"jl pangeran diponegoro 123"}
-    ]
-  })*/
+  console.log("Params retrieved",params)
+  con.makeQuery(query.saveTicket(params),result=>{
+    console.log(result)
+    res.send(result)
   })
 })
 //app.listen(process.env.port||2019)

@@ -15,15 +15,16 @@ getComplaints = _ => {
 saveTicket = (obj) => {
   keys = obj.columns.map(item=>{
     return item.key
-  }).join('","')
+  }).join(',')
   vals = obj.columns.map(item=>{
     return item.val
   }).join('","')
 
   sql = 'insert into '+obj.tableName+' '
-  sql+= '("'+keys+'") '
+  sql+= '('+keys+') '
   sql+= 'values '
   sql+= '("'+vals+'") '
+  console.log("SQL",sql)
   return sql
 }
 module.exports = {
